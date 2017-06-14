@@ -1,0 +1,149 @@
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="code/chapter/15_game.js"></script>
+<script src="code/game_levels.js"></script>
+<link rel="stylesheet" href="css/text.css">
+<link rel="stylesheet" href="css/game.css">
+<!--
+<head>
+  <EMBED src="fc.mp3" autostart="true" loop="true" width="80" height="20"></EMBED>
+  </head>
+-->
+<center>
+
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="http://malsup.github.io/jquery.form.js"></script>
+
+
+<body>
+<div id="container">
+
+  <p><a href="#">
+    平台游戏
+  </a></p>
+</div>
+  <h1><font face="verdana">当前用户：</font></h1><h1 id="c"></h1>
+  <h1><font face="verdana">积分：</font></h1><h1 id="b"></h1>
+<button id="mark" onclick="dialog()">积分排行</button>
+<button id="account" onclick="changeAccount()">账户</button>
+
+<form style="display:none" action="http://kirkcola.com/electronserver?" method="get" class="form-horizontal col-sm-offset-3 col-md-offset-3" id="score_form">
+
+      <input type=text name="session" value="wcc" style="display:none"/>
+      <input type=text name="action" value="update" style="display:none"/>
+      <input type=text name="user" id="1" value="" style="display:none"/>
+      <input type=text name="score" id="2" value="" style="display:none"/>
+
+      <input type="button" class="btn btn-success pull-right" id="login_btn" value="登陆 "/>
+</form>
+
+
+
+
+
+<script>
+
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for(var i = 0; i < strs.length; i ++) {
+                theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+      var Request = new Object();
+      Request = GetRequest();
+      var x=Request['currentmark'];
+      var y=Request['lusername'];
+
+
+    function f()
+    {
+        document.getElementById('2').value=x;
+    }
+    f();
+    function g()
+    {
+        document.getElementById('1').value=y;
+    }
+    g();
+
+
+
+
+
+    document.getElementById('c').innerHTML = y;
+    //alert(imark);
+    //iimark();
+
+
+      //执行游戏
+      runGame(GAME_LEVELS, DOMDisplay, x, y);
+      //执行游戏
+
+
+    $(document).ready(function(){
+        if(trigger==1){
+            $.ajax({
+                type: "GET",
+                url:"http://kirkcola.com/electronserver?",
+                data:$('#score_form').serialize(),
+                async: false,
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    if(data.status=="success")
+                    {
+                        alert("注册成功.");
+                    }
+                    else if(data.status=="exist")
+                    {
+                        alert("账户已存在");
+                    }
+                    return true;
+                },
+                error:function(ajaxobj)
+                {
+                    alert("账户已存在");
+                }
+            });
+        }else{
+
+        };
+    });
+
+
+
+
+
+      function changeMark(){
+          //window.location.href="mark.html";
+          window.showModalDialog("mark.html");
+          //window.open();
+      }
+    function dialog(){
+
+        var iWidth = 500 ;
+
+        var iHeight = 300 ;
+
+        var iTop = ( window.screen.availHeight - 30 - iHeight ) / 2 ;
+
+        var iLeft = ( window.screen.availWidth - 10 - iWidth ) / 2 ;
+        var win = window.open ("mark.html","弹出窗口", "width=" + iWidth + ", height=" + iHeight + ",top=" + iTop + ",left=" + iLeft + ",toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no,alwaysRaised=yes,depended=yes" ) ;
+    }
+    function changeAccount(){
+          window.location.href="loginregister.html";
+      }
+
+
+  </script>
+</body>
+</center>
