@@ -16,6 +16,7 @@ var cs;
 var cu;
 var ddmark;
 var trigger;
+var currentguan = 0;
 
 
 
@@ -375,6 +376,7 @@ function runGame(plans, Display,x ,y) {
           alert("您当前剩余" + life + "次机会！");
           if (life > 0) {
               //剩余生命时从当前关卡开始
+
               startLevel(n);
           } else {
               //生命为0时直接从起始关开始
@@ -382,10 +384,13 @@ function runGame(plans, Display,x ,y) {
               //alert(mark);
               mark = 0;
               startLevel(0);
+              window.location.reload();
           }
       }
-      else if (n < plans.length - 1)
+      else if (n < plans.length - 1){
         startLevel(n + 1);
+        currentguan = currentguan +1;
+      }
       else
         console.log("You win!");
     });

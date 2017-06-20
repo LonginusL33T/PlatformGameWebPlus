@@ -1,0 +1,1 @@
+[{"user":"aaa","score":"600"},{"user":"bbb","score":"1200"},{"user":"3","score":"200"},{"user":"4","score":"1000"}]

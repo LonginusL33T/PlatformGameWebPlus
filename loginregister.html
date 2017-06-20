@@ -1,264 +1,268 @@
-<!DOCTYPE html>  
-<html>  
-    <head>  
-        <meta charset="utf-8" />  
-        <title>平台游戏</title>
-        <link href="bootstrap.min.css" rel="stylesheet">
-        <link href="font-awesome.min.css" rel="stylesheet">
-        <script src="code/chapter/15_game.js"></script>
-        <script src="jquery.min.js"></script>
-        <script src="bootstrap.min.js"></script>
-        <script type="text/javascript" src="jquery.validate.min.js" ></script>
-        <script type="text/javascript" src="message.js" ></script>
-        <style type="text/css">  
-            body{background: url(4.jpg) no-repeat;background-size:cover;font-size: 16px;}
-            .form{background: rgba(255,255,255,0.2);width:400px;margin:100px auto;}  
-            #login_form{display: block;}  
-            #register_form{display: none;}  
-            .fa{display: inline-block;top: 27px;left: 6px;position: relative;color: #ccc;}  
-            input[type="text"],input[type="password"]{padding-left:26px;}  
-            .checkbox{padding-left:21px;}  
-        </style>  
-    </head>  
-    <body>  
-   
-    <div class="container">  
-        <div class="form row">  
-            <form  action="http://kirkcola.com/electronserver?" method="get" class="form-horizontal col-sm-offset-3 col-md-offset-3" id="login_form">
-                <h3 class="form-title">登陆账户</h3>
-                <div class="col-sm-9 col-md-9">  
-                    <div class="form-group">  
-                        <i class="fa fa-user fa-lg"></i>
-                        <input type=text name="session" value="wcc" style="display:none"/>
-                        <input type=text name="action" value="verify" style="display:none"/>
-                        <input class="form-control required" type="text" placeholder="用户名" id="lusername" name="user" autofocus="autofocus" maxlength="20"/>
-                    </div>  
-                    <div class="form-group">  
-                            <i class="fa fa-lock fa-lg"></i>  
-                            <input class="form-control required" type="password" placeholder="密码" id="lpwd" name="pwd" maxlength="8"/>
-                    </div>  
-                    <div class="form-group">  
-                        <label class="checkbox">  
-                            <input type="checkbox" name="remember" value="1"/> 记住账号
-                        </label>  
-                        <hr />  
-                        <a href="javascript:;" id="register_btn" class="">创建一个账户</a>
-                    </div>  
-                    <div class="form-group">  
-                        <input type="button" class="btn btn-success pull-right" id="login_btn" value="登陆 "/>
-                    </div>  
-                </div>  
-            </form>
-        </div>  
-  
-        <div class="form row">  
-            <form  action="http://kirkcola.com/electronserver?" method="get" class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form">
-                <h3 class="form-title">创建一个账户</h3>
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
+<title>平台游戏</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<script src="js/15_game.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="message.js" ></script>
+<style type="text/css">
+body {
+	background: url(pic/4.jpg) no-repeat;
+	background-size: cover;
+	font-size: 16px;
+}
 
-                <div class="col-sm-9 col-md-9">  
-                    <div class="form-group">  
-                        <i class="fa fa-user fa-lg"></i>
-                        <input type=text name="session" value="wcc" style="display:none"/>
-                        <input type=text name="action" value="adduser" style="display:none"/>
-                        <input class="form-control required" type="text" placeholder="用户名" id="rusername" name="user" autofocus="autofocus"/>
-                    </div>  
-                    <div class="form-group">  
-                            <i class="fa fa-lock fa-lg"></i>  
-                            <input class="form-control required" type="password" placeholder="密码" id="register_password" name="pwd"/>
-                    </div>  
-                    <div class="form-group">  
-                            <i class="fa fa-check fa-lg"></i>  
-                            <input class="form-control required" type="password" placeholder="重新输入您的密码" name="rpassword"/>
-                    </div>  
-                    <div class="form-group">  
-                            <i class="fa fa-envelope fa-lg"></i>  
-                            <input class="form-control eamil" type="text" id="rmail" placeholder="邮件" name="email"/>
-                    </div>  
-                    <div class="form-group">  
-                        <input type="button" class="btn btn-success pull-right" id="register"  value="注册 "/>
-                        <input type="submit" class="btn btn-info pull-left" id="back_btn" value="返回"/>
-                    </div>  
-                </div>  
-            </form>  
-        </div>  
-        </div>  
-    <script type="text/javascript" >
-        //var lusername = document.getElementById("lusername").value;
+.form {
+	background: rgba(255, 255, 255, 0.2);
+	width: 400px;
+	margin: 100px auto;
+}
+
+#login_form {
+	display: block;
+}
+
+#register_form {
+	display: none;
+}
+
+.fa {
+	display: inline-block;
+	top: 27px;
+	left: 6px;
+	position: relative;
+	color: #ccc;
+}
+
+input[type="text"], input[type="password"] {
+	padding-left: 26px;
+}
+
+.checkbox {
+	padding-left: 21px;
+}
+</style>
+</head>
+<body>
+
+	<div class="container">
+		<div class="form row">
+			<form method="get"
+				class="form-horizontal col-sm-offset-3 col-md-offset-3"
+				id="login_form">
+				<h3 class="form-title">登陆账户</h3>
+				<div class="col-sm-9 col-md-9">
+					<div class="form-group">
+						<i class="fa fa-user fa-lg"></i>
+						<!-- <input type=text name="action" value="verify" style="display:none"/> -->
+						<input class="form-control required" type="text" placeholder="用户名"
+							id="lusername" name="user" autofocus="autofocus" maxlength="20" />
+					</div>
+					<div class="form-group">
+						<i class="fa fa-lock fa-lg"></i> <input
+							class="form-control required" type="password" placeholder="密码"
+							id="lpwd" name="pwd" maxlength="8" />
+					</div>
+					<div class="form-group">
+						<label class="checkbox"> <input type="checkbox"
+							name="remember" value="1" /> 记住账号
+						</label>
+						<hr />
+						<a href="javascript:;" id="register_btn" class="">创建一个账户</a>
+					</div>
+					<div class="form-group">
+						<input type="button" class="btn btn-success pull-right"
+							id="login_btn" value="登陆 " />
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="form row">
+			<form
+				class="form-horizontal col-sm-offset-3 col-md-offset-3"
+				id="register_form">
+				<h3 class="form-title">创建一个账户</h3>
+
+				<div class="col-sm-9 col-md-9">
+					<div class="form-group">
+						<i class="fa fa-user fa-lg"></i>
+						<!-- <input type=text name="action" value="adduser" style="display:none"/> -->
+						<input class="form-control required" type="text" placeholder="用户名"
+							id="rusername" name="user" autofocus="autofocus" />
+					</div>
+					<div class="form-group">
+						<i class="fa fa-lock fa-lg"></i> <input
+							class="form-control required" type="password" placeholder="密码"
+							id="register_password" name="pwd" />
+					</div>
+					<div class="form-group">
+						<i class="fa fa-check fa-lg"></i> <input
+							class="form-control required" type="password"
+							placeholder="重新输入您的密码" name="rpassword" />
+					</div>
+					<div class="form-group">
+						<i class="fa fa-envelope fa-lg"></i> <input
+							class="form-control eamil" type="text" id="rmail"
+							placeholder="邮件" name="email" />
+					</div>
+					<div class="form-group">
+						<input type="button" class="btn btn-success pull-right"
+							id="register" value="注册 " /> <input type="submit"
+							class="btn btn-info pull-left" id="back_btn" value="返回" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$().ready(function() {
+			$("#login_form").validate({
+				rules : {
+					username : "required",
+					password : {
+						required : true,
+						minlength : 5
+					},
+				},
+				messages : {
+					username : "请输入姓名",
+					password : {
+						required : "请输入密码",
+						minlength : jQuery.format("密码不能小于{0}个字 符")
+					},
+				}
+			});
+			$("#register_form").validate({
+				rules : {
+					username : "required",
+					password : {
+						required : true,
+						minlength : 5
+					},
+					rpassword : {
+						equalTo : "#register_password"
+					},
+					email : {
+						required : true,
+						email : true
+					}
+				},
+				messages : {
+					username : "请输入姓名",
+					password : {
+						required : "请输入密码",
+						minlength : jQuery.format("密码不能小于{0}个字 符")
+					},
+					rpassword : {
+						equalTo : "两次密码不一样"
+					},
+					email : {
+						required : "请输入邮箱",
+						email : "请输入有效邮箱"
+					}
+				}
+			});
+		});
+
+		$(function() {
+			$("#register_btn").click(function() {
+				$("#register_form").css("display", "block");
+				$("#login_form").css("display", "none");
+			});
+
+			$("#register").click(function() {
+				//$("#register_form").submit();
+
+				//服务器存储
+				//ajax提交表单并解析
+				$.ajax({
+					type : "GET",
+					url : "http://localhost:8888/register",
+					data : $('#register_form').serialize(),
+					error : function(request) {
+						alert("Connection error");
+					},
+					success : function(data) {
+						if (data.status == "success") {
+							alert("注册成功.");
+                            $("#login_form").css("display", "block");
+                            $("#register_form").css("display", "none");
+							return true;
+
+						} else if (data.status == "exist") {
+							alert("账户已存在");
+						}
+						return true;
+					},
+					error : function(data) {
+						alert("账户已存在");
+					}
+				});
 
 
 
-
-
-
-
-        $().ready(function() {
-            $("#login_form").validate({
-                rules: {
-                    username: "required",
-                    password: {
-                        required: true,
-                        minlength: 5
-                    },
-                },
-                messages: {
-                    username: "请输入姓名",
-                    password: {
-                        required: "请输入密码",
-                        minlength: jQuery.format("密码不能小于{0}个字 符")
-                    },
+				//本地存储
+                if(!window.localStorage){
+                    alert("浏览器支持localstorage");
+                    return false;
+                }else{
+                    var storage=window.localStorage;
+                    var rusername = document.getElementById("rusername").value;
+                    var rpassword = document.getElementById("register_password").value;
+                    var rmail = document.getElementById("rmail").value;
                 }
-            });
-            $("#register_form").validate({
-                rules: {
-                    username: "required",
-                    password: {
-                        required: true,
-                        minlength: 5
-                    },
-                    rpassword: {
-                        equalTo: "#register_password"
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    }
-                },
-                messages: {
-                    username: "请输入姓名",
-                    password: {
-                        required: "请输入密码",
-                        minlength: jQuery.format("密码不能小于{0}个字 符")
-                    },
-                    rpassword: {
-                        equalTo: "两次密码不一样"
-                    },
-                    email: {
-                        required: "请输入邮箱",
-                        email: "请输入有效邮箱"
-                    }
-                }
-            });
-        });
-        $(function() {
-            $("#register_btn").click(function() {
-                $("#register_form").css("display", "block");
-                $("#login_form").css("display", "none");
-            });
-
-
-            $("#register").click(function() {
-                //$("#register_form").submit();
                 //本地存储
-                var rusername = document.getElementById("rusername").value;
-                var rpassword = document.getElementById("register_password").value;
-                var rmail = document.getElementById("rmail").value;
-                if(verifyrUser(rusername)==true){
-                    addUser(rusername,rpassword,rmail);
-                }
-                //本地存储
+			});
 
-                //服务器存储
-                //ajax提交表单并解析
-                $.ajax({
-                    type: "GET",
-                    url:"http://kirkcola.com/electronserver?",
-                    data:$('#register_form').serialize(),
-                    async: false,
-                    error: function(request) {
-                        alert("Connection error");
-                    },
-                    success: function(data) {
-                        if(data.status=="success")
-                        {
-                            alert("注册成功.");
-                        }
-                        else if(data.status=="exist")
-                        {
-                            alert("账户已存在");
-                        }
-                        return true;
-                    },
-                    error:function(ajaxobj)
-                    {
-                        alert("账户已存在");
-                    }
-                });
+			$("#back_btn").click(function() {
 
+				$("#register_form").css("display", "none");
+				$("#login_form").css("display", "block");
+                e.preventDefault();
+			});
+			$("#login_btn").click(function() {
+								$("#register_form").css("display", "none");
+								$("#login_form").css("display", "block");
 
-                /*
-                var rusername = document.getElementById("rusername").value;
-                var rpassword = document.getElementById("register_password").value;
-                var rmail = document.getElementById("rmail").value;
-                if(verifyrUser(rusername)==true){
-                    addUser(rusername,rpassword,rmail);
-                }
-                */
-            });
+								$.ajax({
+											type : "GET",
+											url : "http://localhost:8888/login",
+											data : $('#login_form').serialize(),
+											error : function(request) {
+												alert("Connection error");
+											},
+											success : function(data) {
+												if (data.status == "pass") {
+													alert("登陆成功");
+													//alert(data.currentScore);
+													var currentmark = data.currentScore;
+													var lusername = document
+															.getElementById("lusername").value;
+													window.location.href = "index.html?currentmark="
+															+ currentmark
+															+ "&lusername="
+															+ lusername + "";
 
+												} else if (data.status == "notexist") {
+													alert("该账户不存在");
+												} else if (data.status == "wrongpwd") {
+													alert("账号或密码错误");
+												}
+												return true;
+											},
+											error : function(ajaxobj) {
+												alert("该用户不存在");
+											}
+										});
+							});
 
-            $("#back_btn").click(function() {
-                $("#register_form").css("display", "none");
-                $("#login_form").css("display", "block");
-            });
-            $("#login_btn").click(function() {
-                $("#register_form").css("display", "none");
-                //$("#login_form").css("display", "block");
-                //本地存储
-                var lusername = document.getElementById("lusername").value;
-                var lpwd = document.getElementById("lpwd").value;
-                if(verifyUser(lusername,lpwd)==true){
-                    //alert('BEFORE JUMP');
-                    //window.location.href="index.html"
-                    window.location.href="index.html?username="+lusername;
-
-                }
-                //本地存储
-                $.ajax({
-                    type: "GET",
-                    url:"http://kirkcola.com/electronserver?",
-                    data:$('#login_form').serialize(),
-                    async: false,
-                    error: function(request) {
-                        alert("Connection error");
-                    },
-                    success: function(data) {
-                        if(data.status=="pass")
-                        {
-                            alert("登陆成功");
-                            //alert(data.currentScore);
-                            var currentmark = data.currentScore;
-                            //alert(currentmark);
-                            var lusername = document.getElementById("lusername").value;
-                            window.location.href="index.html?currentmark="+currentmark+"&lusername="+lusername+"";
-
-                        }
-                        else if(data.status=="notexist")
-                        {
-                            alert("该账户不存在");
-                        }
-                        return true;
-                    },
-                    error:function(ajaxobj)
-                    {
-                        alert("该用户不存在");
-                    }
-                });
-                /*
-                var lusername = document.getElementById("lusername").value;
-                var lpwd = document.getElementById("lpwd").value;
-                if(verifyUser(lusername,lpwd)==true){
-                    //alert('BEFORE JUMP');
-                    //window.location.href="index.html"
-                    window.location.href="index.html?username="+lusername;
-
-                }
-                     */
-            });
-        });
-
-
-
-
-    </script>
-    </body>  
-</html>  
+		});
+	</script>
+</body>
+</html>

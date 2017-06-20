@@ -1,35 +1,52 @@
 <!doctype html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="code/chapter/15_game.js"></script>
-<script src="code/game_levels.js"></script>
+<script src="js/15_game.js"></script>
+<script src="js/game_levels.js"></script>
 
 <link rel="stylesheet" href="css/game.css">
 
 <style>
-    body{background:#222222;}
+body {
+	background: #222222;
+}
 
-    div{
-        background:#FFC0CB;
-        width:400px;
-        word-wrap: break-word;
-        overflow: hidden;
-    }
-    .div-inline1{ float:left;}
-    .div-inline2{ float:right;}
-    .tablecenter{
-        margin: 0 auto;
-        margin-top: 80px;
-    }
-    .center {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        /*background-color: #098;*/
-        width:50%;
-        height: 50%;
-        -ms-transform: translateX(-50%) translateY(-50%);
-    }
-body{ text-align:center;background-size:cover;font-size: 25px; font-style: oblique;color: #D2413A;}
+div {
+	background: #FFC0CB;
+	width: 400px;
+	word-wrap: break-word;
+	overflow: hidden;
+}
+
+.div-inline1 {
+	float: left;
+}
+
+.div-inline2 {
+	float: right;
+}
+
+.tablecenter {
+	margin: 0 auto;
+	margin-top: 80px;
+}
+
+.center {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	/*background-color: #098;*/
+	width: 50%;
+	height: 50%;
+	-ms-transform: translateX(-50%) translateY(-50%);
+}
+
+body {
+	text-align: center;
+	background-size: cover;
+	font-size: 25px;
+	font-style: oblique;
+	color: #D2413A;
+}
 </style>
 
 
@@ -39,93 +56,90 @@ body{ text-align:center;background-size:cover;font-size: 25px; font-style: obliq
 
 <body>
 
-<form style="display:none" action="http://kirkcola.com/electronserver?" method="get" class="form-horizontal col-sm-offset-3 col-md-offset-3" id="display_form">
+	<form style="display: none" method="get"
+		class="form-horizontal col-sm-offset-3 col-md-offset-3"
+		id="display_form">
 
-    <input type=text name="session" value="wcc" style="display:none"/>
-    <input type=text name="action" value="getall" style="display:none"/>
-    <input type="button" class="btn btn-success pull-right" id="login_btn" value="登陆 "/>
-</form>
+		<input type=text name="action" value="getall" style="display: none" />
+		<input type="button" class="btn btn-success pull-right" id="login_btn"
+			value="登陆 " />
+	</form>
 
-<Script language="javascript">
+	<Script language="javascript">
+		var paiming = "排名" + "&nbsp" + "&nbsp" + "&nbsp" + '<br>';
+		var username = "名称" + "&nbsp" + "&nbsp" + "&nbsp" + '<br>';
+		var point = "分数" + "&nbsp" + "&nbsp" + "&nbsp" + '<br>';
 
+		$.ajax({
+			type : "GET",
+			url : "http://localhost:8888/queryRecord",
+			data : {},
+			async : false,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data) {
+				var scoringStr = data.status;
+				console.info(scoringStr);
+				if (scoringStr == undefined || scoringStr == null
+						|| scoringStr == null)
+					return;
+				//json数组
+				var scoringArr = JSON.parse(scoringStr);
+				// 转换为对象数组
+				/*var objectArr = new Array();
+				for (var i = 0; i < scoringArr.length; i++) {
+					var item = JSON.parse(JSON
+							.stringify(scoringArr[i]));
+					objectArr.push(item);
+				}*/
+				// 将数组按照积分进行倒叙排序
+				scoringArr.sort(function(a, b) {
+					return b.score - a.score
+				});
+				// 显示
+				for (var i = 0; i < scoringArr.length; i++) {
+					var item = scoringArr[i];
+					paiming = paiming + "第" + (i + 1) + "名" + "&nbsp" + "&nbsp"
+							+ "&nbsp" + '<br>';
+					username = username + item.user + "&nbsp" + "&nbsp" + "&nbsp"
+							+ '<br>';
+					point = point + item.score + "&nbsp" + "&nbsp" + "&nbsp"
+							+ '<br>';
+				}
 
-    var paiming="名次"+"&nbsp"+"&nbsp"+"&nbsp"+'<br>';
-    var username="玩家"+"&nbsp"+"&nbsp"+"&nbsp"+'<br>';
-    var point="积分"+"&nbsp"+"&nbsp"+"&nbsp"+'<br>';
+			},
+			error : function(ajaxobj) {
 
-    $.ajax({
-        type: "GET",
-        url:"http://kirkcola.com/electronserver?",
-        data:{
-            session: "wcc",
-            action:"getall",
-        },
-        async: false,
-        error: function(request) {
-            alert("Connection error");
-        },
-        success: function(data) {
-            var i=0;
-            while(true){
-                var jsonStr2=JSON.stringify(data.data[i]);
-                jsonStr2=jsonStr2.replace('{"user":'," ");
-                jsonStr2=jsonStr2.replace('"score":'," ");
-                i=i+1;
-                var Array = jsonStr2.split('",');
-                var user1=Array[0].replace('"', "");
-                var score=Array[1].replace('}', " ");
-                var user=user1.replace('"', "");
-                paiming=paiming+"第"+i+"名"+"&nbsp"+"&nbsp"+"&nbsp"+'<br>';
-                username=username+user+"&nbsp"+"&nbsp"+"&nbsp"+'<br>';
-                point=point+score+"&nbsp"+"&nbsp"+"&nbsp"+'<br>';
-                if(score==0)
-                    break;
-            }
+				if (ajaxobj.responseText != '')
+					alert(ajaxobj.responseText);
 
-        },
-        error:function(ajaxobj)
-        {
-
-            if(ajaxobj.responseText!='')
-                alert(ajaxobj.responseText);
-
-        }
-    });
-</script>
-
-
-
-
-<table border="1" class="tablecenter">
-
-    <th align="center" >
-        <font color="#FF0000">
-            <script>
-                document.write(paiming);
-            </script>
-    </th>
-
-    <th align="center">
-        <script>
-            document.write(username);
-        </script>
-    </th>
-
-    <th align="center">
-        <script>
-            document.write(point);
-        </script>
-    </th>
+			}
+		});
+	</script>
 
 
-</table>
 
 
-<script type="text/javascript">
+	<table border="1" class="tablecenter" id="t_table">
+
+		<th align="center"><font color="#FF0000"> <script>
+			document.write(paiming);
+		</script></th>
+
+		<th align="center"><script>
+			document.write(username);
+		</script></th>
+
+		<th align="center"><script>
+			document.write(point);
+		</script></th>
 
 
-    //displayMark();
+	</table>
 
 
-</script>
+	<script type="text/javascript">
+		//displayMark();
+	</script>
 </body>
