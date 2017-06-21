@@ -26,6 +26,7 @@
 </div>
   <h1><font face="verdana">当前用户：</font></h1><h1 id="c"></h1>
   <h1><font face="verdana">积分：</font></h1><h1 id="b"></h1>
+  <!--<a href="javascript:void(0);" onclick="showLocalData();">本地数据</a>-->
 
 <button id="mark" onclick="dialog()">积分排行</button>
 <button id="account" onclick="changeAccount()">账户</button>
@@ -126,6 +127,11 @@
     function changeAccount(){
           window.location.href="loginregister.html";
       }
+    
+    function showLocalData(){
+    	console.info(localStorage.getItem("nopeUsers"));
+    	console.info(localStorage.getItem("nopeScores"));
+    }
 
 
   </script>

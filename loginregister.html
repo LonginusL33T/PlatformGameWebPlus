@@ -209,15 +209,31 @@ input[type="text"], input[type="password"] {
 
 				//本地存储
                 if(!window.localStorage){
-                    alert("浏览器支持localstorage");
+                    alert("浏览器不支持localstorage");
                     return false;
                 }else{
-                    var storage=window.localStorage;
                     var rusername = document.getElementById("rusername").value;
                     var rpassword = document.getElementById("register_password").value;
                     var rmail = document.getElementById("rmail").value;
+                    
+                 	// 写入本地存储
+            		var usersStr = localStorage.getItem("nopeUsers");
+            		var user = {
+            			"user" : rusername,
+            			"pwd" : rpassword,
+            			"email" : rmail
+            		};
+        			// 获取已有的localUsers
+            		var localUsers = JSON.parse(usersStr);
+        			if(localUsers == null){
+        				localUsers = new Array();
+        			}
+        			// 写入用户
+        			localUsers.push(user);
+
+            		// 转变成string存储
+            		localStorage.setItem("nopeUsers", JSON.stringify(localUsers));
                 }
-                //本地存储
 			});
 
 			$("#back_btn").click(function() {

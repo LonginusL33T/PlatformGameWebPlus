@@ -452,6 +452,38 @@ updateLocalMark = function() {
 
 	var localmark = mark;
 	var currentuser = cu;
+	var flag = "0";
+	
+	var scoresStr = localStorage.getItem("nopeScores");
+	// 转换成对象数组
+	var scores = JSON.parse(scoresStr);
+
+	// 如果本地数据不存在，初始化
+	if(scores == null){
+		scores = new Array();
+	}
+	for (var i = 0; i < scores.length; i++) {
+		var s = scores[i];
+		// 替换分数
+		if (s.user == currentuser) {
+			scores[i].score = localmark;
+			flag = "1";
+			break;
+		}
+	}
+	
+	if (flag == "0") {
+		var newScore = new Object();
+		newScore.user = currentuser;
+		newScore.score = localmark;
+		// 如果本地数据不存在，初始化
+		if(scores == null){
+			scores = new Array();
+		}
+		scores.push(newScore);
+	}
+	
+	localStorage.setItem("nopeScores", JSON.stringify(scores));
 }
 
 
